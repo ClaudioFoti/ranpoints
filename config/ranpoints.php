@@ -12,6 +12,10 @@ return [
             'url' => '/',
         ],
         [
+            'title' => 'Posts',
+            'url' => '/posts',
+        ],
+        [
             'title' => 'Users',
             'url' => '/users',
         ],
