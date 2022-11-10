@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
-Route::get('users', [\App\Http\Controllers\UserController::class, 'index']);
+Route::resource('users', \App\Http\Controllers\UserController::class);
+
+Route::resource('posts', \App\Http\Controllers\PostController::class);
 
 require __DIR__.'/auth.php';
