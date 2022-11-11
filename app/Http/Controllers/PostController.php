@@ -29,7 +29,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'body' => 'required|min:5|max:255'
+            'body' => 'required|min:5|max:255',
         ]);
 
         Post::create([
@@ -37,7 +37,7 @@ class PostController extends Controller
             'likes' => 0,
             'user_id' => 1,
             'parent_post_id' => null,
-            'category_id' => null
+            'category_id' => null,
         ]);
 
         return redirect(route('posts.index'));
@@ -55,11 +55,11 @@ class PostController extends Controller
         $post = Post::find($id);
 
         $validated = $request->validate([
-            'body' => 'required|min:5|max:255'
+            'body' => 'required|min:5|max:255',
         ]);
 
         $post->update($validated);
 
-        return redirect(route('posts.show',$id));
+        return redirect(route('posts.show', $id));
     }
 }

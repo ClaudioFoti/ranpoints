@@ -7,8 +7,11 @@ use Illuminate\View\Component;
 class Form extends Component
 {
     public string $method;
+
     public string $title;
+
     public string $action;
+
     public string $submit;
 
     /**
