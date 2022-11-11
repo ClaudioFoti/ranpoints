@@ -13,7 +13,8 @@ class SiteLayout extends Component
      */
     public function __construct(
         public string $title = 'RanPoints',
-    ) {}
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.

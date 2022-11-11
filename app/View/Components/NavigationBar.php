@@ -28,8 +28,7 @@ class NavigationBar extends Component
     {
         $route = '/'.Str::of(request()->getUri())->afterLast('/');
 
-
-        foreach($this->menu as $key => $item) {
+        foreach ($this->menu as $key => $item) {
             $this->menu[$key]['active'] = request()->getRequestUri() === $item['url'];
         }
 

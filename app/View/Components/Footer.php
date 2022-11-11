@@ -18,7 +18,6 @@ class Footer extends Component
         $this->menu = config('ranpoints.menu');
     }
 
-
     /**
      * Get the view / contents that represent the component.
      *

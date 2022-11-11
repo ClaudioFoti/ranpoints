@@ -5,6 +5,12 @@
         <a href="{{route('users.show', $post->author->id)}}" class="underline">
             {{$post->author->name}}
         </a>
+        @if($post->parent_post_id !== null)
+            Parent post
+            <a href="{{route('posts.show', $post->parent_post->id)}}" class="underline">
+                {{$post->parent_post->id}}
+            </a>
+        @endif
     </div>
 
     {{$post->body}}

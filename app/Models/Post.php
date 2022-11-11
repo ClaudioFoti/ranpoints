@@ -11,6 +11,16 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function parent_post()
+    {
+        return $this->belongsTo(Post::class, 'parent_post_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Post::class, 'parent_post_id');
     }
 }
