@@ -1,0 +1,3 @@
+.dropdown-no-after::after{
+    content: inherit;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,29 +11,28 @@
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- ---------- Styles ---------- -->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body class="antialiased">
+<body class="antialiased d-flex flex-column h-100">
 
-<div class="min-h-full">
+<x-navigation-bar/>
 
-    <x-navigation-bar/>
+<x-header :title="$title"/>
 
-    <x-header :title="$title"/>
-
-    <main>
-        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <!-- Replace with your content -->
-            <div class="px-4 py-6 sm:px-0">
-                <div class="rounded-lg border-4 border-dashed border-gray-200 p-4 ">
-                    {{ $slot }}
-                </div>
-            </div>
-            <!-- /End replace -->
-        </div>
-    </main>
-</div>
+<main class="container py-4">
+    {{ $slot }}
+</main>
 
 <x-footer/>
 

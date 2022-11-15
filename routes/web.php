@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', \App\Http\Controllers\WelcomeController::class)->name('welcome');
-Route::resource('posts', \App\Http\Controllers\PostController::class);
 
 require __DIR__.'/auth.php';
 
@@ -18,9 +17,7 @@ require __DIR__.'/auth.php';
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('home', \App\Http\Controllers\HomeController::class)->name('home');
 });
 
 /*
@@ -29,5 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::resource('posts', \App\Http\Controllers\PostController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
 });

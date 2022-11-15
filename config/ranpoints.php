@@ -9,7 +9,7 @@ return [
     'menu' => [
         [
             'title' => 'Home',
-            'url' => '/',
+            'url' => '/home',
         ],
         [
             'title' => 'Posts',
