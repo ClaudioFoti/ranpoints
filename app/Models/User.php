@@ -47,7 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_id');
     }
 
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
 
@@ -55,7 +56,7 @@ class User extends Authenticatable
     {
         static::created(function ($user) {
             Profile::create([
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
         });
     }
