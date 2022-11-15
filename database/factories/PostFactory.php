@@ -21,7 +21,6 @@ class PostFactory extends Factory
             'likes' => fake()->numberBetween(1, 100),
             'user_id' => fake()->numberBetween(1, 10),
             'parent_post_id' => fake()->optional()->numberBetween(1, 10),
-            'category_id' => fake()->optional()->numberBetween(1, 10),
         ];
     }
 }

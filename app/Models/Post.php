@@ -21,6 +21,11 @@ class Post extends Model
         return $this->belongsTo(Post::class, 'parent_post_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function children()
     {
         return $this->hasMany(Post::class, 'parent_post_id');
