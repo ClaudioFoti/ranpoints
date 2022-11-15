@@ -11,7 +11,12 @@ This project uses
 - [Laravel 9](https://laravel.com/docs/9.x/releases)
 
 ## Installation instructions
-- Run "php artisan migrate"
+- Run <strong>composer install</strong>
+- Run <strong>npm install</strong>
+- Create a .env file based on .env.example with database name and credentials
+- Generate application key (Run <strong>php artisan key:generate</strong>)
+- Run <strong>php artisan migrate</strong>
 
 ## Environment Variables
-- Default ones
+- Database (DB_DATABASE)
+- Application key (APP_KEY)
