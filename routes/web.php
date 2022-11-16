@@ -18,6 +18,7 @@ require __DIR__.'/auth.php';
 */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', \App\Http\Controllers\HomeController::class)->name('home');
+    Route::resource('interactions', \App\Http\Controllers\PostUserController::class);
 });
 
 /*

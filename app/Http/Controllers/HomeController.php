@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $posts = Post::with(['author', 'categories'])->get();
+        $posts = Post::with(['author', 'categories','interactions'])->get();
 
         return view('home', compact('posts'));
     }
