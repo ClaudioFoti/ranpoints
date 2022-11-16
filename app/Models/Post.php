@@ -30,4 +30,8 @@ class Post extends Model
     {
         return $this->hasMany(Post::class, 'parent_post_id');
     }
+
+    public function interactions(){
+        return $this->hasMany(PostUser::class);
+    }
 }
