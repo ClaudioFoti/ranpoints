@@ -1,16 +1,16 @@
-<nav class="bg-gray-800">
-    <div class="container">
+<nav class="dark:bg-gray-800">
+    <div class="container mx-auto">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <span class="text-white">RanPoints</span>
+                    <span class="text-black dark:text-white">RanPoints</span>
                 </div>
 
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         @if(auth()->user()?->is_admin)
                             @foreach($menu as $item)
-                                <a href="{{$item['url']}}" class="@if($item['active']) bg-gray-900 text-white @else text-gray-300 hover:bg-gray-700 hover:text-white @endif px-3 py-2 rounded-md text-sm font-medium">{{$item['title']}}</a>
+                                <a href="{{$item['url']}}" class="@if($item['active']) bg-gray-400 dark:bg-gray-900 text-white @else text-gray-300 hover:bg-gray-700 hover:text-white @endif px-3 py-2 rounded-md text-sm font-medium">{{$item['title']}}</a>
                             @endforeach
                         @endif
                     </div>
@@ -21,23 +21,35 @@
                 <div class="ml-4 flex items-center md:ml-6">
                     <!-- Profile dropdown -->
                     @auth
-                    <div class="dropdown">
-                        <button type="button" class="dropdown-toggle dropdown-no-after flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
                             <span class="sr-only">Open user menu</span>
-                            <img class="h-8 w-8 rounded-full" src="{{auth()->user()->profile->profile_icon}}" alt="">
+                            <img class="mr-2 w-8 h-8 rounded-full" src="{{auth()->user()->profile->profile_icon}}" alt="user photo">
+                                {{auth()->user()->name}}
+                            <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" aria-labelledby="dropdownMenuButton1" aria-labelledby="dropdownMenuButton1">
-                            <li><a href="#" class="dropdown-item block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a></li>
-                            <li><a href="#" class="dropdown-item block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a></li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
+
+                        <!-- Dropdown menu -->
+                        <div id="dropdownAvatarName" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
+                                <div class="font-medium ">{{auth()->user()->name}}</div>
+                                <div class="truncate">{{auth()->user()->email}}</div>
+                            </div>
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                                <li>
+                                    <a href="{{route('home')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                </li>
+                            </ul>
+                            <div class="py-1">
+                                <form class="w-full" method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <button class="dropdown-item block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+                                    <button class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full text-left">Sign out</button>
                                 </form>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </div>
                     @else
                         <span class="text-white"><a href="{{route('login')}}">Log in</a></span>
                     @endauth

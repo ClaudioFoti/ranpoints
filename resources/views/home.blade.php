@@ -1,7 +1,7 @@
 <x-site-layout title="Posts">
-    <div class="mx-auto" style="width: 24rem;">
+    <div class="mx-auto w-[40rem]">
         @foreach($posts as $post)
-            <x-post authorName="{{$post->author->name}}" body="{{$post->body}}" :categories="$post->categories"/>
+            <x-post :post="$post" :categories="$post->categories"/>
         @endforeach
     </div>
 </x-site-layout>

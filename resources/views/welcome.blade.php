@@ -12,6 +12,6 @@
             </div>
         @endforeach
     @else
-        You are not logged in. Please log in to view the posts feed.
+        <span class="text- dark:text-white">You are not logged in. Please log in to view the posts feed.</span>
     @endauth
 </x-site-layout>
