@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\PostUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PostUserController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function store(Request $request)
@@ -24,22 +22,22 @@ class PostUserController extends Controller
             'post_id' => 'required|integer',
         ]);
 
-        $post_id = $validated["post_id"];
+        $post_id = $validated['post_id'];
 
-        $post_user_query = PostUser::where('user_id','=',$user_id)->where('post_id','=',$post_id);
+        $post_user_query = PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id);
 
-        if ($post_user_query->count() === 0){
-            if($post_user_query->withTrashed()->count() === 0){
+        if ($post_user_query->count() === 0) {
+            if ($post_user_query->withTrashed()->count() === 0) {
                 PostUser::create([
                     'post_id' => $post_id,
                     'user_id' => $user_id,
-                    'weight' => random_int(1,5),
+                    'weight' => random_int(1, 5),
                 ]);
-            }
-            else{
+            } else {
                 $post_user_query->withTrashed()->restore();
             }
         }
+
         return redirect()->back();
     }
 

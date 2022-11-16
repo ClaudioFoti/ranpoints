@@ -36,7 +36,8 @@ class Post extends Model
         return $this->hasMany(PostUser::class);
     }
 
-    public function hasUserLiked(){
-        return !$this->interactions->filter(fn($interaction) => $interaction->user_id === auth()->user()->id)->isEmpty();
+    public function hasUserLiked()
+    {
+        return ! $this->interactions->filter(fn ($interaction) => $interaction->user_id === auth()->user()->id)->isEmpty();
     }
 }
