@@ -19,7 +19,7 @@ class PostUserController extends Controller
         $user_id = auth()->user()->id;
 
         $validated = $request->validate([
-            'post_id' => ['required','integer'],
+            'post_id' => ['required', 'integer'],
         ]);
 
         $post_id = $validated['post_id'];
