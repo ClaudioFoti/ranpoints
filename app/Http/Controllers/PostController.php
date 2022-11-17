@@ -29,7 +29,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'body' => 'required|min:5|max:255',
+            'body' => ['required','min:5','max:255'],
         ]);
 
         Post::create([
@@ -55,7 +55,7 @@ class PostController extends Controller
         $post = Post::find($id);
 
         $validated = $request->validate([
-            'body' => 'required|min:5|max:255',
+            'body' => ['required','min:5','max:255'],
         ]);
 
         $post->update($validated);
