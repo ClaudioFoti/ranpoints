@@ -2,13 +2,10 @@
 
 namespace App\View\Components;
 
-use App\View\TailwindColorHelper;
 use Illuminate\View\Component;
 
-class Post extends Component
+class ChildPost extends Component
 {
-    public $tailwindColorHelper;
-
     /**
      * Create a new component instance.
      *
@@ -16,7 +13,7 @@ class Post extends Component
      */
     public function __construct()
     {
-        $this->tailwindColorHelper = new TailwindColorHelper();
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ class Post extends Component
      */
     public function render()
     {
-        return view('components.post');
+        return view('components.child-post');
     }
 }

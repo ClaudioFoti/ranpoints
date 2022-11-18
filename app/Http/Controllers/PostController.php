@@ -21,8 +21,16 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->parent_post_id !== null) {
+            $validated = $request->validate([
+                'parent_post_id' => ['integer'],
+            ]);
+
+            return view('posts.create', ['parent_post_id' => $validated['parent_post_id']]);
+        }
+
         return view('posts.create');
     }
 
@@ -30,15 +38,23 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'body' => ['required', 'min:5', 'max:255'],
+            'image' => ['nullable', 'file'],
+            'parent_post_id' => ['nullable', 'integer'],
         ]);
 
-        Post::create([
-            'body' => $validated->body,
-            'likes' => 0,
-            'user_id' => 1,
-            'parent_post_id' => null,
-            'category_id' => null,
+        $post = Post::create([
+            'body' => $validated['body'],
+            'user_id' => auth()->user()->id,
+            'parent_post_id' => $validated['parent_post_id'],
         ]);
+
+        $validated = $request->validate([
+            'image' => ['nullable', 'file', 'image'],
+        ]);
+
+        if ($request->has('image')) {
+            $post->addMediaFromRequest('image')->toMediaCollection();
+        }
 
         return redirect(route('posts.index'));
     }
