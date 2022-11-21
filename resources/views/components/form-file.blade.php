@@ -1,8 +1,7 @@
-@props(['name', 'label', 'placeholder', 'errors', 'value'])
+@props(['name', 'label', 'errors', 'value'])
 <div class="mt-2 mb-4">
-    <div class="flex ">
-        <label class="w-24 text-gray-500 text-sm" for="{{$name}}">{{$label}}</label>
-        <input type="file" name="{{$name}}" value="{{ old($name, $value)  }}" class="w-64 p-1">
-    </div>
+    <input name="{{$name}}" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="{{$name}}_help" id="{{$name}}" type="file">
+    <p id="{{$name}}_help" class="text-sm text-gray-500 dark:text-gray-400">{{$label}}</p>
+
     <x-form-error name="{{$name}}" :errors="$errors"/>
 </div>

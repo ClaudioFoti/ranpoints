@@ -1,8 +1,7 @@
-@props(['name','errors','value'])
+@props(['name', 'placeholder','errors','value'])
 <div>
-    <label for="{{$name}}">{{ucfirst($name)}}</label>
-    <textarea name="{{$name}}" placeholder="Your post"
-              class="border border-gray-400 rounded-sm p-1">@error('body'){{old($name, $value)}}@else{{$value}}@enderror</textarea>
+    <textarea name="{{$name}}" placeholder="{{$placeholder}}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full min-h-[8rem]">{{ old($name, $value)  }}</textarea>
 
     <x-form-error :name="$name" :errors="$errors"/>
 </div>
