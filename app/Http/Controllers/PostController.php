@@ -9,16 +9,32 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['author', 'categories'])->get();
+        $posts = Post::with(['author', 'categories', 'interactions', 'author.profile', 'media', 'children'])->orderByDesc('created_at')->get();
 
         return view('posts.index', compact('posts'));
     }
 
-    public function show($id)
+    public function show(Request $request, int $id)
     {
-        $post = Post::find($id);
+        $showChildren = false;
 
-        return view('posts.show', compact('post'));
+        if ($request->showChildren !== null) {
+            $validated = $request->validate([
+                'showChildren' => ['boolean'],
+            ]);
+
+            $showChildren = $validated['showChildren'];
+        }
+
+        $withParameters = ['children', 'interactions', 'media'];
+
+        if ($showChildren) {
+            array_push($withParameters, 'children.author', 'children.media', 'children.interactions');
+        }
+
+        $post = Post::with($withParameters)->find($id);
+
+        return view('posts.show', compact('post'), compact('showChildren'));
     }
 
     public function create(Request $request)
@@ -36,25 +52,20 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        //Post
         $validated = $request->validate([
             'body' => ['required', 'min:5', 'max:255'],
-            'image' => ['nullable', 'file'],
             'parent_post_id' => ['nullable', 'integer'],
         ]);
 
         $post = Post::create([
             'body' => $validated['body'],
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->id(),
             'parent_post_id' => $validated['parent_post_id'],
         ]);
 
-        $validated = $request->validate([
-            'image' => ['nullable', 'file', 'image'],
-        ]);
-
-        if ($request->has('image')) {
-            $post->addMediaFromRequest('image')->toMediaCollection();
-        }
+        //Categories and Image
+        $this->addExtraData($request, $post);
 
         return redirect(route('posts.index'));
     }
@@ -68,6 +79,7 @@ class PostController extends Controller
 
     public function update($id, Request $request)
     {
+        //Post
         $post = Post::find($id);
 
         $validated = $request->validate([
@@ -76,6 +88,41 @@ class PostController extends Controller
 
         $post->update($validated);
 
+        //Categories and Image
+        $this->addExtraData($request, $post);
+
         return redirect(route('posts.show', $id));
+    }
+
+    /**
+     * @param  Request  $request
+     * @param $post
+     * @return void
+     */
+    public function addExtraData(Request $request, $post): void
+    {
+        //Categories
+        $validated = $request->validate([
+            'categories' => ['nullable', 'string'],
+        ]);
+
+        $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
+
+        $category_list = [];
+        foreach ($categories as $category) {
+            $category_list[] = \App\Models\Category::firstOrCreate(['name' => $category]);
+        }
+        $category_list = collect($category_list);
+
+        $post->categories()->sync($category_list->pluck('id'));
+
+        //Image
+        $validated = $request->validate([
+            'image' => ['nullable', 'file', 'image'],
+        ]);
+
+        if ($request->has('image')) {
+            $post->addMediaFromRequest('image')->toMediaCollection();
+        }
     }
 }
