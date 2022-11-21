@@ -3,7 +3,9 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <span class="text-black dark:text-white">RanPoints</span>
+                    <a href="{{route('home')}}">
+                        <span class="text-black dark:text-white">RanPoints</span>
+                    </a>
                 </div>
 
                 <div class="hidden md:block">
