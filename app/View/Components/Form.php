@@ -12,20 +12,17 @@ class Form extends Component
 
     public string $action;
 
-    public string $submit;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $method, string $title, string $action, string $submit)
+    public function __construct(string $method, string $title, string $action)
     {
         //
         $this->method = $method;
         $this->title = $title;
         $this->action = $action;
-        $this->submit = $submit;
     }
 
     /**

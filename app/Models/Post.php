@@ -14,16 +14,15 @@ class Post extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    protected $fillable = ['body', 'likes', 'user_id', 'parent_post_id', 'category_id'];
+    protected $fillable = ['body', 'parent_post_id', 'user_id'];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
 
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function parent_post()
-    {
-        return $this->belongsTo(Post::class, 'parent_post_id');
     }
 
     public function categories()
@@ -39,6 +38,11 @@ class Post extends Model implements HasMedia
     public function interactions()
     {
         return $this->hasMany(PostUser::class);
+    }
+
+    public function parent_post()
+    {
+        return $this->belongsTo(Post::class, 'parent_post_id');
     }
 
     public function hasUserLiked()
