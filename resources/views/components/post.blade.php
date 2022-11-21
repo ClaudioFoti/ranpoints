@@ -13,7 +13,7 @@
                         {{$post->author->name}}
                     </p>
                     <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                        {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('H:i · d.m.Y')}}
+                        {{$post->created_at->format('H:i · d.m.Y')}}
                     </p>
                 </a>
             </div>
@@ -81,8 +81,12 @@
                 </div>
             </div>
             <div class="flex">
-                <p class="line-clamp-2">{{ $post->children->first()->body }}</p>
-                <img class="w-10 h-10" src="{{$post->children->first()->media->last()?->getUrl('thumbnail')}}">
+                <a href="{{route('posts.show',[$post->id,'showChildren' => true])}}">
+                    <p class="line-clamp-2">{{ $post->children->first()->body }}</p>
+                    @if(!$post->media->isEmpty())
+                        <img class="w-10 h-10" src="{{$post->children->first()->media->last()?->getUrl('thumbnail')}}">
+                    @endif
+                </a>
             </div>
         </div>
     @endif
