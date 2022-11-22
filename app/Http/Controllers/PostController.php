@@ -14,40 +14,42 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    public function show(Request $request, int $id)
+    public function show(int $id)
     {
-        $showChildren = false;
+        $post = Post::find($id);
 
-        if ($request->showChildren !== null) {
-            $validated = $request->validate([
-                'showChildren' => ['boolean'],
-            ]);
+        $withParameters = ['categories', 'children', 'interactions', 'media', 'author.profile'];
 
-            $showChildren = $validated['showChildren'];
+        if ($post->parent_post_id !== null) {
+            array_push($withParameters, 'parent_post', 'parent_post.author', 'parent_post.media', 'parent_post.author.profile');
         }
 
-        $withParameters = ['children', 'interactions', 'media'];
-
-        if ($showChildren) {
-            array_push($withParameters, 'children.author', 'children.media', 'children.interactions');
+        if (!$post->children->isEmpty()) {
+            array_push($withParameters, 'children.author', 'children.media', 'children.interactions', 'children.author.profile');
         }
 
         $post = Post::with($withParameters)->find($id);
 
-        return view('posts.show', compact('post'), compact('showChildren'));
+        return view('posts.show', compact('post'));
     }
 
     public function create(Request $request)
     {
+        $has_parent = false;
+
         if ($request->parent_post_id !== null) {
             $validated = $request->validate([
                 'parent_post_id' => ['integer'],
             ]);
 
-            return view('posts.create', ['parent_post_id' => $validated['parent_post_id']]);
+            $has_parent = true;
+
+            $parent_post = Post::with('author', 'media', 'author.profile')->find($validated['parent_post_id']);
+
+            return view('posts.create', compact('parent_post'), compact('has_parent'));
         }
 
-        return view('posts.create');
+        return view('posts.create', compact('has_parent'));
     }
 
     public function store(Request $request)
@@ -95,7 +97,7 @@ class PostController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param Request $request
      * @param $post
      * @return void
      */
@@ -106,11 +108,13 @@ class PostController extends Controller
             'categories' => ['nullable', 'string'],
         ]);
 
-        $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
+        $categories = collect(explode(',', $validated['categories']))->map(fn($k) => ucfirst(trim($k)));
 
         $category_list = [];
         foreach ($categories as $category) {
-            $category_list[] = \App\Models\Category::firstOrCreate(['name' => $category]);
+            if ($category !== '' && $category !== ' ') {
+                $category_list[] = \App\Models\Category::firstOrCreate(['name' => $category]);
+            }
         }
         $category_list = collect($category_list);
 

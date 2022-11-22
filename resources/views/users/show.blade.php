@@ -1,16 +1,12 @@
 <x-site-layout title="{{$user->name}}">
-
-    {{$user->email}}
-
-    <h2 class="font-bold mb-2 mt-5">Posts made</h2>
-    <ul class="list-disc pl-5">
-        @foreach($user->posts as $post)
-            <li>
-                <a href="{{route('posts.show', $post->id)}}" class="underline hover:bg-gray-200">
-                    {{$post->id}}
-                </a>
-            </li>
+    <div class="flex flex-col items-center pb-5">
+        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{$user->profile?->profile_icon}}"/>
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$user->name}}</h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{$user->posts->count()}} post(s)</span>
+    </div>
+    <div class="mx-auto w-[50rem] space-y-2">
+        @foreach($user->posts->sortByDesc('created_at') as $post)
+            <x-child-post :post="$post"/>
         @endforeach
-    </ul>
-
+    </div>
 </x-site-layout>
