@@ -41,7 +41,7 @@
                                     <a href="{{route('home')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                    <a href="{{route('users.show',auth()->id())}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                                 </li>
                             </ul>
                             <div class="py-1">

@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::with('posts', 'posts.media', 'posts.author', 'posts.author.profile')->find($id);
 
         return view('users.show', compact('user'));
     }
