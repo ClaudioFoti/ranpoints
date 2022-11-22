@@ -16,6 +16,7 @@ This project uses
 - Create a .env file based on .env.example with database name and credentials
 - Generate application key (Run <strong>php artisan key:generate</strong>)
 - Run <strong>php artisan migrate</strong>
+- Run <strong>php artisan storage:link</strong>
 
 ## Environment Variables
 - Database (DB_DATABASE)
