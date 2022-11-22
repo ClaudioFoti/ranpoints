@@ -24,7 +24,7 @@ class PostController extends Controller
             array_push($withParameters, 'parent_post', 'parent_post.author', 'parent_post.media', 'parent_post.author.profile');
         }
 
-        if (!$post->children->isEmpty()) {
+        if (! $post->children->isEmpty()) {
             array_push($withParameters, 'children.author', 'children.media', 'children.interactions', 'children.author.profile');
         }
 
@@ -97,7 +97,7 @@ class PostController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @param $post
      * @return void
      */
@@ -108,7 +108,7 @@ class PostController extends Controller
             'categories' => ['nullable', 'string'],
         ]);
 
-        $categories = collect(explode(',', $validated['categories']))->map(fn($k) => ucfirst(trim($k)));
+        $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
 
         $category_list = [];
         foreach ($categories as $category) {
