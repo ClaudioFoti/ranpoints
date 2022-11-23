@@ -20,7 +20,7 @@ class PostFactory extends Factory
         return [
             'body' => fake()->text(),
             'user_id' => fake()->numberBetween(1, 15),
-            'parent_post_id' => fake()->optional()->numberBetween(1, 15),
+            'parent_post_id' => fake()->optional()->numberBetween(1, 10),
         ];
     }
 
