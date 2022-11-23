@@ -17,7 +17,7 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'profile_icon' => 'https://cdn-icons-png.flaticon.com/512/64/64572.png',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,18 @@ class PostFactory extends Factory
     {
         return [
             'body' => fake()->text(),
-            'likes' => fake()->numberBetween(1, 100),
-            'user_id' => fake()->numberBetween(1, 10),
-            'parent_post_id' => fake()->optional()->numberBetween(1, 10),
+            'user_id' => fake()->numberBetween(1, 15),
+            'parent_post_id' => fake()->optional()->numberBetween(1, 15),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Post $post) {
+            $url = 'https://source.unsplash.com/random/1200x800';
+            $post
+                ->addMediaFromUrl($url)
+                ->toMediaCollection();
+        });
     }
 }

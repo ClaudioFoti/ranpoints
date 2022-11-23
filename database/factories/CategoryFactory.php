@@ -17,8 +17,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->text(15),
-            'color' => fake()->optional()->colorName(),
+            'name' => ucfirst(fake()->unique()->word()),
         ];
     }
 }
