@@ -21,6 +21,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('interactions', \App\Http\Controllers\PostUserController::class);
     Route::resource('posts', \App\Http\Controllers\PostController::class)->only('create', 'show', 'index', 'store');
     Route::resource('users', \App\Http\Controllers\UserController::class)->only('show');
+    Route::prefix('leaderboards')->group(function () {
+        Route::get('posts', [\App\Http\Controllers\LeaderboardsController::class, 'posts'])->name('posts_leaderboards');
+        Route::get('users', [\App\Http\Controllers\LeaderboardsController::class, 'users'])->name('users_leaderboards');
+    });
 });
 
 /*

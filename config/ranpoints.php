@@ -12,12 +12,12 @@ return [
             'url' => '/home',
         ],
         [
-            'title' => 'Posts',
-            'url' => '/posts',
+            'title' => 'Posts leaderboards',
+            'url' => '/leaderboards/posts',
         ],
         [
-            'title' => 'Users',
-            'url' => '/users',
+            'title' => 'Users leaderboards',
+            'url' => '/leaderboards/users',
         ],
     ],
 ];
