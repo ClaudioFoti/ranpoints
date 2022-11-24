@@ -1,6 +1,6 @@
 @props(['post','categories'])
-<div class="bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full my-4">
-    <div class="p-6">
+<div class="bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full h-full">
+    <div class="p-4">
         <div class="flex items-center space-x-4">
             <div class="flex-shrink-0">
                 <a href="{{route('users.show',$post->author->id)}}">
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="px-5 pb-5">
+    <div class="px-4 pb-4">
         <div class="pb-2">
             @foreach($post->categories as $category)
                 <span
@@ -57,7 +57,7 @@
             @endforeach
         </div>
         <a href="{{route('posts.show',$post->id)}}">
-            <p class="mb-3 font-normal text-lg text-gray-700 dark:text-gray-400">
+            <p class="font-normal text-lg text-gray-700 dark:text-gray-400 break-all">
                 {{ $post->body }}
             </p>
             <img class="max-w-xs" src="{{$post->media->last()?->getUrl()}}">

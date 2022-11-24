@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-site-layout>
     <x-auth-card>
         <x-slot name="logo">
             <p class="text-xl font-bold">RanPoints</p>
@@ -59,4 +59,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-site-layout>

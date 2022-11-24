@@ -1,5 +1,5 @@
-<x-site-layout title="Post {{$post->id}}">
-    <div class="mx-auto w-[40rem]">
+<x-site-layout title="Post from {{$post->author->name}}">
+    <div class="space-y-4">
         @if($post->parent_post_id !== null)
             <div class="flex space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

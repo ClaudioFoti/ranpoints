@@ -1,5 +1,4 @@
 <x-site-layout title="Create post">
-    <div class="mx-auto w-[40rem]">
         @if($has_parent)
         <div class="flex space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -49,5 +48,4 @@
                 </x-form>
             </div>
         </div>
-    </div>
 </x-site-layout>

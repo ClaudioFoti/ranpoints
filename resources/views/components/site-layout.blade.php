@@ -14,7 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Flowbite -->
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css"/>
 
     <!-- JS -->
     <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
@@ -25,8 +25,10 @@
 
 <x-header :title="$title"/>
 
-<main class="container py-4 mx-auto min-h-[calc(100vh-8.34rem)]">
-    {{ $slot }}
+<main class="container py-4 mx-auto min-h-[calc(100vh-11.8rem)]">
+    <div class="mx-auto w-[50rem]">
+        {{ $slot }}
+    </div>
 </main>
 
 <x-footer/>

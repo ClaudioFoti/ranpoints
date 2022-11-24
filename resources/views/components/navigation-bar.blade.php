@@ -1,20 +1,18 @@
-<nav class="dark:bg-gray-800">
+<nav class="bg-gray-800">
     <div class="container mx-auto">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <a href="{{route('home')}}">
-                        <span class="text-black dark:text-white">RanPoints</span>
+                        <span class="text-white">RanPoints</span>
                     </a>
                 </div>
 
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        @if(auth()->user()?->is_admin)
-                            @foreach($menu as $item)
-                                <a href="{{$item['url']}}" class="@if($item['active']) bg-gray-400 dark:bg-gray-900 text-white @else text-gray-300 hover:bg-gray-700 hover:text-white @endif px-3 py-2 rounded-md text-sm font-medium">{{$item['title']}}</a>
-                            @endforeach
-                        @endif
+                        @foreach($menu as $item)
+                            <a href="{{$item['url']}}" class="@if($item['active']) bg-gray-900 text-white @else text-gray-500 hover:bg-gray-700 hover:text-white @endif px-3 py-2 rounded-md text-sm font-medium">{{$item['title']}}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -23,7 +21,7 @@
                 <div class="ml-4 flex items-center md:ml-6">
                     <!-- Profile dropdown -->
                     @auth
-                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
+                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium rounded-full hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 focus:ring-gray-700 text-white" type="button">
                             <span class="sr-only">Open user menu</span>
                             <img class="mr-2 w-8 h-8 rounded-full" src="{{auth()->user()->profile->profile_icon}}" alt="user photo">
                                 {{auth()->user()->name}}
@@ -31,29 +29,32 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownAvatarName" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
+                        <div id="dropdownAvatarName" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow bg-gray-700 divide-gray-600">
+                            <div class="py-3 px-4 text-sm text-white">
                                 <div class="font-medium ">{{auth()->user()->name}}</div>
                                 <div class="truncate">{{auth()->user()->email}}</div>
                             </div>
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                            <ul class="py-1 text-sm text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                                 <li>
-                                    <a href="{{route('home')}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</a>
+                                    <a href="{{route('home')}}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">Home</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('users.show',auth()->id())}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                                    <a href="{{route('users.show',auth()->id())}}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">Profile</a>
                                 </li>
                             </ul>
                             <div class="py-1">
                                 <form class="w-full" method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <button class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full text-left">Sign out</button>
+                                    <button class="block py-2 px-4 text-sm hover:bg-gray-600 text-gray-200 text-white w-full text-left">Sign out</button>
                                 </form>
                             </div>
                         </div>
                     @else
-                        <span class="text-white"><a href="{{route('login')}}">Log in</a></span>
+                        <div class="space-x-4">
+                            <span class="text-white"><a href="{{route('login')}}">Log in</a></span>
+                            <span class="text-white"><a href="{{route('register')}}">Register</a></span>
+                        </div>
                     @endauth
                 </div>
             </div>

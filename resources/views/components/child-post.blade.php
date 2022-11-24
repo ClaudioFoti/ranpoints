@@ -18,7 +18,9 @@
         </div>
         <div class="flex">
             <a href="{{route('posts.show',$post->id)}}">
-                <p class="line-clamp-2">{{ $post->body }}</p>
+                <p class="break-all">
+                    {{ $post->body }}
+                </p>
             </a>
         </div>
     </div>

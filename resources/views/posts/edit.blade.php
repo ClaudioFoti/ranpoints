@@ -1,5 +1,4 @@
 <x-site-layout title="Edit post">
-    <div class="mx-auto w-[40rem]">
         <div
             class="bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full my-4">
             <div class="p-6">
@@ -36,5 +35,4 @@
                 </x-form>
             </div>
         </div>
-    </div>
 </x-site-layout>
