@@ -20,7 +20,7 @@ class LeaderboardsController extends Controller
 
     public function users()
     {
-        $users = User::with('interactions', 'posts', 'posts.media', 'posts.author', 'posts.author.profile')->get();
+        $users = User::with('interactions', 'posts', 'posts.media', 'posts.author', 'posts.author.profile')->whereHas('posts')->get();
 
         $users = $users->each(function ($user) {
             $user->posts->each(fn ($post) => $post->likes = $post->interactions->sum('weight'));
