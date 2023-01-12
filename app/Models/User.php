@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\WelcomeUserNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -63,6 +64,8 @@ class User extends Authenticatable
             Profile::create([
                 'user_id' => $user->id,
             ]);
+
+            $user->notify(new WelcomeUserNotification());
         });
     }
 }
