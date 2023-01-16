@@ -13,6 +13,7 @@ class SiteLayout extends Component
      */
     public function __construct(
         public string $title = 'RanPoints',
+        public bool $uses_livewire = false,
     ) {
     }
 

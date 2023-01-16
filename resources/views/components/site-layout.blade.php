@@ -18,6 +18,10 @@
 
     <!-- JS -->
     <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+
+    @if($uses_livewire)
+        @livewireStyles
+    @endif
 </head>
 <body class="antialiased d-flex flex-column dark:bg-gray-900">
 
@@ -33,5 +37,8 @@
 
 <x-footer/>
 
+@if($uses_livewire)
+    @livewireScripts
+@endif
 </body>
 </html>
