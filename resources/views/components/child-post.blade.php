@@ -19,7 +19,7 @@
         <div class="flex">
             <a href="{{route('posts.show',$post->id)}}">
                 <p class="break-all">
-                    {{ $post->body }}
+                    {!! $post->body !!}
                 </p>
             </a>
         </div>

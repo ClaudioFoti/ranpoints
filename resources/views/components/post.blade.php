@@ -58,7 +58,7 @@
         </div>
         <a href="{{route('posts.show',$post->id)}}">
             <p class="font-normal text-lg text-gray-700 dark:text-gray-400 break-all">
-                {{ $post->body }}
+                {!! $post->body !!}
             </p>
             <img class="max-w-xs" src="{{$post->media->last()?->getUrl()}}">
         </a>

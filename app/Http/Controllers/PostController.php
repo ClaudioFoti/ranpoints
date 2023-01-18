@@ -52,16 +52,31 @@ class PostController extends Controller
         return view('posts.create', compact('has_parent'));
     }
 
+    public function create_quote(){
+        $has_quote = true;
+        $has_parent = false;
+
+        return view('posts.create', compact('has_quote'),compact('has_parent'));
+    }
+
     public function store(Request $request)
     {
         //Post
         $validated = $request->validate([
             'body' => ['required', 'min:5', 'max:255'],
+            'quote' => ['nullable', 'string'],
             'parent_post_id' => ['nullable', 'integer'],
         ]);
 
+        if(isset($validated['quote'])){
+            $body = $validated['quote'].$validated['body'];
+        }
+        else{
+            $body = $validated['body'];
+        }
+
         $post = Post::create([
-            'body' => $validated['body'],
+            'body' => $body,
             'user_id' => auth()->id(),
             'parent_post_id' => $validated['parent_post_id'],
         ]);

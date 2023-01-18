@@ -1,4 +1,4 @@
-<x-site-layout title="Create post">
+<x-site-layout title="Create post" :usesLivewire="true">
         @if($has_parent)
         <div class="flex space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -37,6 +37,11 @@
                 <x-form method="post" action="{{route('posts.store')}}" title="Create post">
                     <div class="space-y-4">
                         <input type="hidden" name="parent_post_id" value="{{$has_parent ? $parent_post->id : ''}}"/>
+
+                        @if(isset($has_quote) and $has_quote)
+                            <livewire:quote/>
+                        @endif
+
                         <x-form-textarea name="body" placeholder="Your post" :errors="$errors" value=""/>
 
                         <x-form-input name="categories" label="Add tags to your post"
