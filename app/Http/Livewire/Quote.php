@@ -22,8 +22,6 @@ class Quote extends Component
     {
         $randomQuote = $this->api->randomQuote();
 
-        dd($randomQuote);
-
         $this->quote = $randomQuote->content;
         $this->author = $randomQuote->originator?->name;
     }
