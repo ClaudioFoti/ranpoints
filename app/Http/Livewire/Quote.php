@@ -4,14 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Services\QuotesAPI;
 use Livewire\Component;
-use Spatie\Ray\Ray;
 
 class Quote extends Component
 {
     private QuotesAPI $api;
-    public string $quote;
-    public string $author;
 
+    public string $quote;
+
+    public string $author;
 
     public function __construct()
     {

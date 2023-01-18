@@ -52,11 +52,12 @@ class PostController extends Controller
         return view('posts.create', compact('has_parent'));
     }
 
-    public function create_quote(){
+    public function create_quote()
+    {
         $has_quote = true;
         $has_parent = false;
 
-        return view('posts.create', compact('has_quote'),compact('has_parent'));
+        return view('posts.create', compact('has_quote'), compact('has_parent'));
     }
 
     public function store(Request $request)
@@ -68,10 +69,9 @@ class PostController extends Controller
             'parent_post_id' => ['nullable', 'integer'],
         ]);
 
-        if(isset($validated['quote'])){
+        if (isset($validated['quote'])) {
             $body = $validated['quote'].$validated['body'];
-        }
-        else{
+        } else {
             $body = $validated['body'];
         }
 
