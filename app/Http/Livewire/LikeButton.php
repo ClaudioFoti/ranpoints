@@ -9,7 +9,9 @@ use Livewire\Component;
 class LikeButton extends Component
 {
     public $post_id;
+
     public $has_user_liked;
+
     public $likes;
 
     public $user_id;

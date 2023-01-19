@@ -11,7 +11,7 @@ class PostUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function store(Request $request)
@@ -44,7 +44,7 @@ class PostUserController extends Controller
         return redirect()->back();
     }
 
-    static public function like($post_id, $user_id)
+    public static function like($post_id, $user_id)
     {
         $post_user_query = PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id);
 
@@ -61,7 +61,7 @@ class PostUserController extends Controller
         }
     }
 
-    static public function unlike($post_id, $user_id)
+    public static function unlike($post_id, $user_id)
     {
         PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id)->delete();
     }
