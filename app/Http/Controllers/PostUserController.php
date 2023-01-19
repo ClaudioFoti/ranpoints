@@ -11,7 +11,7 @@ class PostUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return RedirectResponse
      */
     public function store(Request $request)
@@ -24,19 +24,7 @@ class PostUserController extends Controller
 
         $post_id = $validated['post_id'];
 
-        $post_user_query = PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id);
-
-        if ($post_user_query->count() === 0) {
-            if ($post_user_query->withTrashed()->count() === 0) {
-                PostUser::create([
-                    'post_id' => $post_id,
-                    'user_id' => $user_id,
-                    'weight' => random_int(1, 5),
-                ]);
-            } else {
-                $post_user_query->withTrashed()->restore();
-            }
-        }
+        PostUserController::like($post_id, $user_id);
 
         return redirect()->back();
     }
@@ -51,8 +39,30 @@ class PostUserController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id)->delete();
+        PostUserController::unlike($post_id, $user_id);
 
         return redirect()->back();
+    }
+
+    static public function like($post_id, $user_id)
+    {
+        $post_user_query = PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id);
+
+        if ($post_user_query->count() === 0) {
+            if ($post_user_query->withTrashed()->count() === 0) {
+                PostUser::create([
+                    'post_id' => $post_id,
+                    'user_id' => $user_id,
+                    'weight' => random_int(1, 5),
+                ]);
+            } else {
+                $post_user_query->withTrashed()->restore();
+            }
+        }
+    }
+
+    static public function unlike($post_id, $user_id)
+    {
+        PostUser::where('user_id', '=', $user_id)->where('post_id', '=', $post_id)->delete();
     }
 }

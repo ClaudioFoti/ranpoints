@@ -27,25 +27,8 @@
                 </a>
                 <span class="ml-1 mr-2 mb-2">
                         {{$post->children->count()}}
-                    </span>
-                <form method="post"
-                      action="{{$post->hasUserLiked() ? route('interactions.destroy',$post->id) : route('interactions.store')}}">
-                    @csrf
-                    @if($post->hasUserLiked())
-                        @method('delete')
-                    @endif
-                    <input type="hidden" name="post_id" value="{{$post->id}}">
-                    <button type="submit">
-                        <svg class="w-6 h-6" fill="none" stroke="{{$post->hasUserLiked() ? "#0E9F6E" : "currentColor"}}"
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
-                    </button>
-                </form>
-                <span class="ml-1 mb-2 {{$post->hasUserLiked() ? "text-green-600" : ""}}">
-                    {{$post->interactions->sum('weight')}}
                 </span>
+                <livewire:like-button :has_user_liked="$post->hasUserLiked()" :post_id="$post->id" :likes="$post->interactions->sum('weight')" />
             </div>
         </div>
     </div>

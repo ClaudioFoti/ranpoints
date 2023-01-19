@@ -1,4 +1,4 @@
-<x-site-layout title="Posts">
+<x-site-layout title="Posts" :usesLivewire="true">
     <x-post-button/>
     <div class="space-y-4">
         @foreach($posts as $post)

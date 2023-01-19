@@ -1,4 +1,4 @@
-<x-site-layout title="Post from {{$post->author->name}}">
+<x-site-layout title="Post from {{$post->author->name}}" :usesLivewire="true">
     <div class="space-y-4">
         @if($post->parent_post_id !== null)
             <div class="flex space-x-2">
