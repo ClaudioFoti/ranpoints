@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,3 +12,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::middleware(["auth:sanctum"])->group(function () {
+    Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
+});
