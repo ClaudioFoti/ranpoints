@@ -33,7 +33,6 @@ class PostRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        //TODO: FIX
         throw new \HttpResponseException(response()->json([
             'success' => false,
             'message' => 'Validation errors',

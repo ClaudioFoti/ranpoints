@@ -9,8 +9,6 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    //
-
     public function index()
     {
         $posts = Post::with('author')->get();
@@ -30,11 +28,29 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    public function update()
+    public function update(PostRequest $request, Post $post)
     {
+        if (!auth()->user()?->is_admin) {
+            return response()->json(["message" => "You do not have the permission to perform this action. Only an admin can."], 403);
+        }
+
+        $post->update(array_merge(['user_id' => auth()->id()], $request->validated()));
+
+        return new PostResource($post);
     }
 
-    public function destroy()
+    public function destroy(Post $post)
     {
+        $id = $post->id;
+
+        if ($post->author->id !== auth()->id() && !auth()->user()?->is_admin) {
+            return response()->json(["message" => "You are not allowed to delete this post. Only author or admin can."], 403);
+        } else {
+            if ($post->delete()) {
+                return response()->json(["message" => "Successfully deleted post with id: $id."],204);
+            } else {
+                return response()->json(["message" => "The post with id: $id could not be deleted."], 503);
+            }
+        }
     }
 }
