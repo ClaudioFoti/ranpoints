@@ -30,8 +30,8 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
-        if (!auth()->user()?->is_admin) {
-            return response()->json(["message" => "You do not have the permission to perform this action. Only an admin can."], 403);
+        if (! auth()->user()?->is_admin) {
+            return response()->json(['message' => 'You do not have the permission to perform this action. Only an admin can.'], 403);
         }
 
         $post->update(array_merge(['user_id' => auth()->id()], $request->validated()));
@@ -43,13 +43,13 @@ class PostController extends Controller
     {
         $id = $post->id;
 
-        if ($post->author->id !== auth()->id() && !auth()->user()?->is_admin) {
-            return response()->json(["message" => "You are not allowed to delete this post. Only author or admin can."], 403);
+        if ($post->author->id !== auth()->id() && ! auth()->user()?->is_admin) {
+            return response()->json(['message' => 'You are not allowed to delete this post. Only author or admin can.'], 403);
         } else {
             if ($post->delete()) {
-                return response()->json(["message" => "Successfully deleted post with id: $id."],204);
+                return response()->json(['message' => "Successfully deleted post with id: $id."], 204);
             } else {
-                return response()->json(["message" => "The post with id: $id could not be deleted."], 503);
+                return response()->json(['message' => "The post with id: $id could not be deleted."], 503);
             }
         }
     }
