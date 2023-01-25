@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+ray()->clearAll();
+
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -19,12 +21,16 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('home', \App\Http\Controllers\HomeController::class)->name('home');
     Route::resource('interactions', \App\Http\Controllers\PostUserController::class);
-    Route::resource('posts', \App\Http\Controllers\PostController::class)->only('create', 'show', 'index', 'store');
+    Route::resource('posts', \App\Http\Controllers\PostController::class)->only('create', 'show', 'index');
     Route::get('create_quote', [\App\Http\Controllers\PostController::class, 'create_quote'])->name('create_quote');
     Route::resource('users', \App\Http\Controllers\UserController::class)->only('show');
     Route::prefix('leaderboards')->group(function () {
         Route::get('posts', [\App\Http\Controllers\LeaderboardsController::class, 'posts'])->name('posts_leaderboards');
         Route::get('users', [\App\Http\Controllers\LeaderboardsController::class, 'users'])->name('users_leaderboards');
+    });
+
+    Route::middleware(['prevent_spam'])->group(function () {
+        Route::resource('posts', \App\Http\Controllers\PostController::class)->only('store');
     });
 });
 
