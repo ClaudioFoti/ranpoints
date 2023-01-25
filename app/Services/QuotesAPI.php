@@ -17,7 +17,11 @@ class QuotesAPI
             'X-RapidAPI-Host' => $this->host,
         ])->get($this->base_url.$endpoint.'/', $parameters);
 
-        return json_decode($response->body());
+        if($response->status() === 200){
+            return json_decode($response->body());
+        }
+
+        return null;
     }
 
     public function randomQuote($language = 'en')

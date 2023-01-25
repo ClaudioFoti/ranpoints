@@ -13,17 +13,48 @@ class Quote extends Component
 
     public string $author;
 
+    public string $language;
+
+    public array $languages = [
+        [
+            'code' => 'en',
+            'text' => 'English',
+        ],
+        [
+            'code' => 'fr',
+            'text' => 'Français',
+        ],
+        [
+            'code' => 'it',
+            'text' => 'Italiano',
+        ],
+        [
+            'code' => 'es',
+            'text' => 'Español',
+        ],
+    ];
+
     public function __construct()
     {
         $this->api = new QuotesAPI();
+        $this->language = 'en';
     }
 
     private function getQuote()
     {
-        $randomQuote = $this->api->randomQuote();
+        $collection = collect($this->languages);
 
-        $this->quote = $randomQuote->content;
-        $this->author = $randomQuote->originator?->name;
+        if($collection->filter(fn($language) => $language['code'] === $this->language)->count() > 0){
+            $randomQuote = $this->api->randomQuote($this->language);
+        }
+        else{
+            $randomQuote = $this->api->randomQuote();
+        }
+
+        if ($randomQuote !== null) {
+            $this->quote = $randomQuote->content;
+            $this->author = $randomQuote->originator?->name;
+        }
     }
 
     public function render()
