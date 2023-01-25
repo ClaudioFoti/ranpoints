@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -92,11 +93,9 @@ class PostController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, Post $post)
     {
         //Post
-        $post = Post::find($id);
-
         $validated = $request->validate([
             'body' => ['required', 'min:5', 'max:255'],
         ]);
@@ -106,7 +105,7 @@ class PostController extends Controller
         //Categories and Image
         $this->addExtraData($request, $post);
 
-        return redirect(route('posts.show', $id));
+        return redirect(route('posts.show', $post->id));
     }
 
     /**
@@ -121,17 +120,19 @@ class PostController extends Controller
             'categories' => ['nullable', 'string'],
         ]);
 
-        $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
+        if (isset($validated['categories'])){
+            $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
 
-        $category_list = [];
-        foreach ($categories as $category) {
-            if ($category !== '' && $category !== ' ') {
-                $category_list[] = \App\Models\Category::firstOrCreate(['name' => $category]);
+            $category_list = [];
+            foreach ($categories as $category) {
+                if ($category !== '' && $category !== ' ') {
+                    $category_list[] = \App\Models\Category::firstOrCreate(['name' => $category]);
+                }
             }
-        }
-        $category_list = collect($category_list);
+            $category_list = collect($category_list);
 
-        $post->categories()->sync($category_list->pluck('id'));
+            $post->categories()->sync($category_list->pluck('id'));
+        }
 
         //Image
         $validated = $request->validate([
@@ -141,5 +142,12 @@ class PostController extends Controller
         if ($request->has('image')) {
             $post->addMediaFromRequest('image')->toMediaCollection();
         }
+    }
+
+    public function destroy(Request $request,Post $post){
+        ray($post);
+        $post->delete();
+
+        return redirect(route('posts.index'));
     }
 }

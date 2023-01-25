@@ -23,14 +23,4 @@ class PostFactory extends Factory
             'parent_post_id' => fake()->optional()->numberBetween(1, 10),
         ];
     }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (Post $post) {
-            $url = 'https://source.unsplash.com/random/1200x800';
-            $post
-                ->addMediaFromUrl($url)
-                ->toMediaCollection();
-        });
-    }
 }
