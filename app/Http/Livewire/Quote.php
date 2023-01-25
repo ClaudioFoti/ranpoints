@@ -44,10 +44,9 @@ class Quote extends Component
     {
         $collection = collect($this->languages);
 
-        if($collection->filter(fn($language) => $language['code'] === $this->language)->count() > 0){
+        if ($collection->filter(fn ($language) => $language['code'] === $this->language)->count() > 0) {
             $randomQuote = $this->api->randomQuote($this->language);
-        }
-        else{
+        } else {
             $randomQuote = $this->api->randomQuote();
         }
 

@@ -17,7 +17,7 @@ class QuotesAPI
             'X-RapidAPI-Host' => $this->host,
         ])->get($this->base_url.$endpoint.'/', $parameters);
 
-        if($response->status() === 200){
+        if ($response->status() === 200) {
             return json_decode($response->body());
         }
 
