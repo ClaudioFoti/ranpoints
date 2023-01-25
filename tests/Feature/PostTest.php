@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -46,8 +45,8 @@ class PostTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee($posts->first()->body);
-        $response->assertViewHas('posts', fn() => $posts->count() === 3);
-        $response->assertViewHas('posts', fn() => $posts->first()->author->name === 'John Doe');
+        $response->assertViewHas('posts', fn () => $posts->count() === 3);
+        $response->assertViewHas('posts', fn () => $posts->first()->author->name === 'John Doe');
     }
 
     //Show tests
@@ -88,7 +87,7 @@ class PostTest extends TestCase
                 'user_id' => $this->user->id,
                 'body' => 'Testing body',
                 'categories' => 'Testing, Categories',
-                'parent_post_id' => null
+                'parent_post_id' => null,
             ]
         );
 
@@ -103,7 +102,7 @@ class PostTest extends TestCase
                 'user_id' => $this->user->id,
                 'body' => '',
                 'categories' => '',
-                'parent_post_id' => null
+                'parent_post_id' => null,
             ]
         );
 
@@ -120,7 +119,7 @@ class PostTest extends TestCase
                 'user_id' => $this->user->id,
                 'body' => 'Testing body',
                 'categories' => 'Testing, Categories',
-                'parent_post_id' => null
+                'parent_post_id' => null,
             ]
         );
 

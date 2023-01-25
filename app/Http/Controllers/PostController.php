@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -120,7 +119,7 @@ class PostController extends Controller
             'categories' => ['nullable', 'string'],
         ]);
 
-        if (isset($validated['categories'])){
+        if (isset($validated['categories'])) {
             $categories = collect(explode(',', $validated['categories']))->map(fn ($k) => ucfirst(trim($k)));
 
             $category_list = [];
@@ -144,7 +143,8 @@ class PostController extends Controller
         }
     }
 
-    public function destroy(Request $request,Post $post){
+    public function destroy(Request $request, Post $post)
+    {
         ray($post);
         $post->delete();
 
