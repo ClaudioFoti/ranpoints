@@ -9,13 +9,7 @@ class LeaderboardsController extends Controller
 {
     public function posts()
     {
-        $posts = Post::with(['author', 'categories', 'children', 'interactions', 'media', 'author.profile'])->orderByDesc('created_at')->get();
-
-        $posts = $posts->each(fn ($post) => $post->likes = $post->interactions->sum('weight'))->sortByDesc('likes');
-
-        $posts = $posts->take(10);
-
-        return view('leaderboards.posts', compact('posts'));
+        return view('leaderboards.posts');
     }
 
     public function users()

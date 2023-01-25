@@ -14,10 +14,8 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    public function show(int $id)
+    public function show(Post $post)
     {
-        $post = Post::find($id);
-
         $withParameters = ['categories', 'children', 'interactions', 'media', 'author.profile'];
 
         if ($post->parent_post_id !== null) {
@@ -28,7 +26,7 @@ class PostController extends Controller
             array_push($withParameters, 'children.author', 'children.media', 'children.interactions', 'children.author.profile');
         }
 
-        $post = Post::with($withParameters)->find($id);
+        $post = $post->load($withParameters);
 
         return view('posts.show', compact('post'));
     }

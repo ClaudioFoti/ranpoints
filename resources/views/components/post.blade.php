@@ -28,7 +28,8 @@
                 <span class="ml-1 mr-2 mb-2">
                         {{$post->children->count()}}
                 </span>
-                <livewire:like-button :has_user_liked="$post->hasUserLiked()" :post_id="$post->id" :likes="$post->interactions->sum('weight')" />
+                @ray($post)
+                <livewire:like-button wire:key="like-{{$post->id}}" :has_user_liked="$post->hasUserLiked()" :post_id="$post->id" :likes="$post->interactions->sum('weight')" />
             </div>
         </div>
     </div>

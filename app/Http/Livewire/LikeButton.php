@@ -26,6 +26,8 @@ class LikeButton extends Component
         PostUserController::like($this->post_id, $this->user_id);
 
         $this->refreshLikes();
+
+        $this->emit('like');
     }
 
     public function unlike()
@@ -33,6 +35,8 @@ class LikeButton extends Component
         PostUserController::unlike($this->post_id, $this->user_id);
 
         $this->refreshLikes();
+
+        $this->emit('unlike');
     }
 
     public function refreshLikes()

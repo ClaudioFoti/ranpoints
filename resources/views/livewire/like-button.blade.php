@@ -1,4 +1,4 @@
-<div class="inline-flex" wire:key="{{$post_id}}">
+<div class="inline-flex">
     <button wire:click="{{ $has_user_liked ? "unlike" : "like" }}">
         <svg class="w-6 h-6" fill="none" stroke="{{$has_user_liked ? "#0E9F6E" : "currentColor"}}"
              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
