@@ -9,7 +9,7 @@ class PostLeaderboard extends Component
 {
     public $posts;
 
-    protected $listeners = ['like' => '$refresh', 'unlike'=> '$refresh'];
+    protected $listeners = ['like' => '$refresh', 'unlike' => '$refresh'];
 
     public function refreshPosts()
     {
