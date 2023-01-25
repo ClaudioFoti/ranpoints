@@ -18,12 +18,13 @@ class PreventSpamMiddleware
     {
         $key = 'no_spam';
 
-        if(!session($key) || !session()->has($key)){
+        if (! session($key) || ! session()->has($key)) {
             session([$key => true]);
+
             return $next($request);
-        }
-        else{
-            session()->flash('message','Stop spamming please.');
+        } else {
+            session()->flash('message', 'Stop spamming please.');
+
             return redirect('home');
         }
     }
